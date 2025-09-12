@@ -12,7 +12,7 @@ const AddCategory = () => {
     const handleCategoty = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post("http://localhost:9000/api/v1/add/category", input,
+            const res = await axios.post("https://blog-project-5xqq.onrender.com/api/v1/add/category", input,
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
