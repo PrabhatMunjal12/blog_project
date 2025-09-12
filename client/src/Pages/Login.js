@@ -13,7 +13,7 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post("http://localhost:9000/api/v1/user/login", input);
+            const res = await axios.post("https://blog-project-5xqq.onrender.com/api/v1/user/login", input);
             alert(res.data.message);
             localStorage.setItem("token", res.data.token);
             localStorage.setItem("username", res.data.name);
