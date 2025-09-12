@@ -14,7 +14,7 @@ const Register = () => {
         e.preventDefault();
         try {
             const res = await axios.post(
-                "http://localhost:9000/api/v1/user/register",
+                "https://blog-project-5xqq.onrender.com/api/v1/user/register",
                 input
             );
             alert(res.data.message);
