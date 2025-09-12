@@ -1,0 +1,130 @@
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
+
+const Register = () => {
+    const navigate = useNavigate();
+    const [input, setInput] = useState({
+        username: "",
+        email: "",
+        password: "",
+    });
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const res = await axios.post(
+                "http://localhost:9000/api/v1/user/register",
+                input
+            );
+            alert(res.data.message);
+            navigate("/login");
+        } catch (error) {
+            alert(error.response?.data?.message || "Something went wrong");
+        }
+    };
+
+    return (
+        <div
+            className="login-page d-flex justify-content-center align-items-center vh-100"
+            style={{
+                backgroundImage:
+                    "url('https://source.unsplash.com/random/1920x1080/?technology')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                position: "relative",
+            }}
+        >
+            {/* Blur + Overlay */}
+            <div
+                style={{
+                    position: "absolute",
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    left: 0,
+                    backdropFilter: "blur(6px)", // main blur
+                    backgroundColor: "rgba(0,0,0,0.4)", // dim overlay
+                    zIndex: 1,
+                }}
+            ></div>
+
+            {/* Card Section */}
+            <div className="container d-flex justify-content-center align-items-center vh-100">
+                <div className="card shadow p-4" style={{ width: "400px", zIndex: 2 }}>
+                    <h2 className="text-center mb-4 text-primary">SIGN UP HERE</h2>
+                    <form onSubmit={handleSubmit}>
+                        {/* Name Input */}
+                        <div className="mb-3">
+                            <label htmlFor="name" className="form-label">
+                                Name:
+                            </label>
+                            <input
+                                type="text"
+                                name="username"
+                                value={input.username}
+                                onChange={(e) =>
+                                    setInput({ ...input, [e.target.name]: e.target.value })
+                                }
+                                id="name"
+                                className="form-control"
+                                placeholder="Enter your name"
+                            />
+                        </div>
+
+                        {/* Email Input */}
+                        <div className="mb-3">
+                            <label htmlFor="email" className="form-label">
+                                Email:
+                            </label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                value={input.email}
+                                onChange={(e) =>
+                                    setInput({ ...input, [e.target.name]: e.target.value })
+                                }
+                                className="form-control"
+                                placeholder="Enter your email"
+                            />
+                        </div>
+
+                        {/* Password Input */}
+                        <div className="mb-3">
+                            <label htmlFor="password" className="form-label">
+                                Password:
+                            </label>
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                value={input.password}
+                                onChange={(e) =>
+                                    setInput({ ...input, [e.target.name]: e.target.value })
+                                }
+                                className="form-control"
+                                placeholder="Enter your password"
+                            />
+                        </div>
+
+                        {/* Submit Button */}
+                        <button type="submit" className="btn btn-primary w-100">
+                            Sign Up
+                        </button>
+                    </form>
+
+                    {/* Redirect to Login */}
+                    <p className="text-center mt-3">
+                        Already have an account?{" "}
+                        <Link to="/login" className="fw-semibold text-primary">
+                            Login
+                        </Link>
+                    </p>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default Register;
