@@ -134,15 +134,10 @@ import { useNavigate, Link } from "react-router-dom";
 
 const Register = () => {
     const navigate = useNavigate();
-    const [input, setInput] = useState({
-        username: "",
-        email: "",
-        password: "",
-    });
-
+    const [input, setInput] = useState({ username: "", email: "", password: "" });
     const [bgImage, setBgImage] = useState("");
 
-    // 🔹 Fetch background image from your backend
+    // 🔹 Fetch dynamic background
     useEffect(() => {
         const fetchBg = async () => {
             try {
@@ -158,13 +153,14 @@ const Register = () => {
         fetchBg();
     }, []);
 
+    // 🔹 Handle form submit
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const res = await axios.post(
                 "https://blog-project-5xqq.onrender.com/api/v1/user/register",
                 input,
-                 { headers: { "Content-Type": "application/json" }, withCredentials: true }
+                { headers: { "Content-Type": "application/json" }, withCredentials: true }
             );
             alert(res.data.message);
             navigate("/login");
@@ -183,7 +179,7 @@ const Register = () => {
                 position: "relative",
             }}
         >
-            {/* Blur + Overlay */}
+            {/* Overlay */}
             <div
                 style={{
                     position: "absolute",
@@ -197,7 +193,7 @@ const Register = () => {
                 }}
             ></div>
 
-            {/* Card Section */}
+            {/* Card */}
             <div className="container d-flex justify-content-center align-items-center vh-100">
                 <div className="card shadow p-4" style={{ width: "400px", zIndex: 2 }}>
                     <h2 className="text-center mb-4 text-primary">SIGN UP HERE</h2>
@@ -208,9 +204,7 @@ const Register = () => {
                                 type="text"
                                 name="username"
                                 value={input.username}
-                                onChange={(e) =>
-                                    setInput({ ...input, [e.target.name]: e.target.value })
-                                }
+                                onChange={(e) => setInput({ ...input, [e.target.name]: e.target.value })}
                                 id="name"
                                 className="form-control"
                                 placeholder="Enter your name"
@@ -224,9 +218,7 @@ const Register = () => {
                                 id="email"
                                 name="email"
                                 value={input.email}
-                                onChange={(e) =>
-                                    setInput({ ...input, [e.target.name]: e.target.value })
-                                }
+                                onChange={(e) => setInput({ ...input, [e.target.name]: e.target.value })}
                                 className="form-control"
                                 placeholder="Enter your email"
                             />
@@ -239,9 +231,7 @@ const Register = () => {
                                 id="password"
                                 name="password"
                                 value={input.password}
-                                onChange={(e) =>
-                                    setInput({ ...input, [e.target.name]: e.target.value })
-                                }
+                                onChange={(e) => setInput({ ...input, [e.target.name]: e.target.value })}
                                 className="form-control"
                                 placeholder="Enter your password"
                             />
@@ -254,9 +244,7 @@ const Register = () => {
 
                     <p className="text-center mt-3">
                         Already have an account?{" "}
-                        <Link to="/login" className="fw-semibold text-primary">
-                            Login
-                        </Link>
+                        <Link to="/login" className="fw-semibold text-primary">Login</Link>
                     </p>
                 </div>
             </div>
@@ -265,6 +253,3 @@ const Register = () => {
 };
 
 export default Register;
-
-
-
