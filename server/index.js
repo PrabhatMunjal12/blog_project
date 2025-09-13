@@ -17,11 +17,14 @@ const allowedOrigins = [
   "https://blog-project-1-5ih2.onrender.com",
 ];
 
+// ✅ CORS middleware (applied before routes)
 app.use((req, res, next) => {
   const origin = req.headers.origin;
-  if (allowedOrigins.includes(origin)) {
+  // Only set header if origin exists and is allowed
+  if (origin && allowedOrigins.includes(origin)) {
     res.setHeader("Access-Control-Allow-Origin", origin);
   }
+
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET,POST,PUT,DELETE,OPTIONS"
@@ -32,9 +35,9 @@ app.use((req, res, next) => {
   );
   res.setHeader("Access-Control-Allow-Credentials", "true");
 
-  // Preflight request
+  // Handle preflight requests
   if (req.method === "OPTIONS") {
-    return res.sendStatus(204);
+    return res.sendStatus(204); // No Content
   }
 
   next();
