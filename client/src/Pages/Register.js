@@ -29,7 +29,7 @@ const Register = () => {
             className="login-page d-flex justify-content-center align-items-center vh-100"
             style={{
                 backgroundImage:
-                    "url('https://source.unsplash.com/random/1920x1080/?technology')",
+                    "url('')",
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 position: "relative",
