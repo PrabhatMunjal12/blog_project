@@ -11,13 +11,29 @@ const PORT = process.env.PORT || 9000;
 
 connectToMongo();
 
+const allowedOrigins = [
+  "http://localhost:3000",                        // React local dev
+  "https://blog-project-1-5ih2.onrender.com",     // React deployed on Render
+];
+
+// Dynamic CORS setup
 app.use(
   cors({
-    origin: "https://blog-project-1-5ih2.onrender.com", // frontend URL
+    origin: function (origin, callback) {
+      // allow requests with no origin (like Postman or curl)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   })
 );
+
 
 app.use(express.json());
 app.use(express.static("public/upload"));
