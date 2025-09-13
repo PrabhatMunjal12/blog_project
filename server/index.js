@@ -10,42 +10,40 @@ const app = express();
 const PORT = process.env.PORT || 9000;
 
 connectToMongo();
+app.use(corsMiddleware);
 
-app.use(cors({origin:"http://localhost:9000",
-              methods:["GET","POST","PUT","DELETE"],
-             })
-        );
-// app.use(cors());
-// const allowedOrigins = [
-//   "http://localhost:3000",
-//   "https://blog-project-1-5ih2.onrender.com",
-// ];
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://blog-project-1-5ih2.onrender.com",
+];
 
-// // ✅ CORS middleware (applied before routes)
-// app.use((req, res, next) => {
-//   const origin = req.headers.origin;
-//   // Only set header if origin exists and is allowed
-//   if (origin && allowedOrigins.includes(origin)) {
-//     res.setHeader("Access-Control-Allow-Origin", origin);
-//   }
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
 
-//   res.setHeader(
-//     "Access-Control-Allow-Methods",
-//     "GET,POST,PUT,DELETE,OPTIONS"
-//   );
-//   res.setHeader(
-//     "Access-Control-Allow-Headers",
-//     "Content-Type, Authorization"
-//   );
-//   res.setHeader("Access-Control-Allow-Credentials", "true");
+  // Allow requests from allowed origins
+  if (origin && allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader("Vary", "Origin"); // Helps caching proxies handle CORS
+  }
 
-//   // Handle preflight requests
-//   if (req.method === "OPTIONS") {
-//     return res.sendStatus(204); // No Content
-//   }
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization"
+  );
+  res.setHeader("Access-Control-Allow-Credentials", "true");
 
-//   next();
-// });
+  // Handle preflight OPTIONS request
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(204); // No Content
+  }
+
+  next();
+});
+
 
 
 
