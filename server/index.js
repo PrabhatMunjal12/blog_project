@@ -11,7 +11,36 @@ const PORT = process.env.PORT || 9000;
 
 connectToMongo();
 
-app.use(cors());
+// app.use(cors());
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://blog-project-1-5ih2.onrender.com",
+];
+
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET,POST,PUT,DELETE,OPTIONS"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization"
+  );
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+
+  // Preflight request
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(204);
+  }
+
+  next();
+});
+
+
 
 app.use(express.json());
 app.use(express.static("public/upload"));
