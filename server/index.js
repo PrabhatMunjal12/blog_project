@@ -13,7 +13,7 @@ connectToMongo();
 app.use(corsMiddleware);
 
 const allowedOrigins = [
-  "http://localhost:3000",
+  // "https://blog-project-1-5ih2.onrender.com",
   "https://blog-project-1-5ih2.onrender.com",
 ];
 
