@@ -40,26 +40,21 @@
 import express from "express";
 import axios from "axios";
 import dotenv from "dotenv";
+import multer from "multer";
 import AuthController from "../controllers/authController.js";
 import BlogController from "../controllers/blogController.js";
 import CategoryController from "../controllers/categoryController.js";
-import multer from "multer";
 import checkIsUserAuthenticated from "../middlewares/authMiddleware.js";
 
 dotenv.config();
-
 const router = express.Router();
 
-// Multer setup for file uploads
+// ------------------ Multer setup for uploads ------------------
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, `public/upload/`);
-    },
-    filename: function (req, file, cb) {
-        cb(null, `${Date.now()}-${file.originalname}`);
-    },
+    destination: (req, file, cb) => cb(null, `public/upload/`),
+    filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`)
 });
-const upload = multer({ storage: storage });
+const upload = multer({ storage });
 
 // ------------------ Auth Routes ------------------
 router.post("/user/register", AuthController.userRegistration);
@@ -80,22 +75,18 @@ router.post("/add/category", checkIsUserAuthenticated, CategoryController.addNew
 // ------------------ Unsplash Image Route ------------------
 router.get("/image/random", async (req, res) => {
     try {
-        const query = req.query.query || "technology"; // default query
+        const query = req.query.query || "technology";
         const UNSPLASH_ACCESS_KEY = process.env.UNSPLASH_ACCESS_KEY;
 
         if (!UNSPLASH_ACCESS_KEY) {
             return res.status(500).json({ message: "Unsplash API key not set" });
         }
 
-        const response = await axios.get(
-            "https://api.unsplash.com/photos/random",
-            {
-                params: { query, orientation: "landscape" },
-                headers: { Authorization: `Client-ID ${UNSPLASH_ACCESS_KEY}` },
-            }
-        );
+        const response = await axios.get("https://api.unsplash.com/photos/random", {
+            params: { query, orientation: "landscape" },
+            headers: { Authorization: `Client-ID ${UNSPLASH_ACCESS_KEY}` }
+        });
 
-        // Send only the image URL to frontend
         res.json({ url: response.data.urls.full });
     } catch (err) {
         console.error("Unsplash fetch error:", err.message);
