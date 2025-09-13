@@ -11,9 +11,22 @@ const PORT = process.env.PORT || 9000;
 
 connectToMongo();
 
+const allowedOrigins = [
+  "http://localhost:3000", // React local dev
+  "https://blog-project-1-5ih2.onrender.com", // deployed React on Render
+];
+
 app.use(cors({
-  origin: "https://blog-project-1-5ih2.onrender.com", // your React frontend
-  credentials: true, // allow cookies/headers if needed
+  origin: function (origin, callback) {
+    // allow requests with no origin (like mobile apps, curl)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true, // allow cookies/authorization headers
 }));
 
 
