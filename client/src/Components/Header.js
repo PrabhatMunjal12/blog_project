@@ -18,7 +18,7 @@ const Header = () => {
     const handleMyBlogs = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.get(`http://localhost:9000/api/v1/get/all/myblogs`, {
+            const res = await axios.get(`https://blog-project-5xqq.onrender.com/api/v1/get/all/myblogs`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`
                 }
