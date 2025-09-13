@@ -11,7 +11,10 @@ const PORT = process.env.PORT || 9000;
 
 connectToMongo();
 
-app.use(cors());
+app.use(cors({
+  origin: "https://blog-project-1-5ih2.onrender.com", // your React frontend
+  credentials: true, // allow cookies/headers if needed
+}));
 
 
 app.use(express.json());
