@@ -146,7 +146,7 @@ const Register = () => {
                 );
                 setBgImage(res.data.url);
             } catch (err) {
-                console.error("Background fetch failed:", err.message);
+                // console.error("Background fetch failed:", err.message);
                 setBgImage("https://picsum.photos/1920/1080?random=1"); // fallback
             }
         };
