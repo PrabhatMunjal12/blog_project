@@ -42,7 +42,7 @@ const Home = () => {
                                         <div className="card h-100 shadow-sm">
                                             {/* Card Image */}
                                             <img
-                                                src={`http://localhost:9000/${item.thumbnail}`}
+                                                src={`https://blog-project-5xqq.onrender.com/${item.thumbnail}`}
                                                 alt={item.title}
                                                 className="card-img-top"
                                             />
