@@ -14,7 +14,7 @@ app.use(corsMiddleware);
 
 const allowedOrigins = [
   // "https://blog-project-1-5ih2.onrender.com",
-  "https://blog-project-1-5ih2.onrender.com",
+  "https://blog-project-5xqq.onrender.com/api/v1/user/register",
 ];
 
 app.use((req, res, next) => {
