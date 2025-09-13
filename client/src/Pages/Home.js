@@ -10,7 +10,7 @@ const Home = () => {
     useEffect(() => {
         const fetchAllBlogs = async () => {
             try {
-                const res = await axios.get("https://blog-project-5xqq.onrender.com/api/v1/get/allblogs", {
+                const res = await axios.get("https://blog-project-1-5ih2.onrender.com/api/v1/get/allblogs", {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
@@ -42,7 +42,7 @@ const Home = () => {
                                         <div className="card h-100 shadow-sm">
                                             {/* Card Image */}
                                             <img
-                                                src={`https://blog-project-5xqq.onrender.com/${item.thumbnail}`}
+                                                src={`https://blog-project-1-5ih2.onrender.com/${item.thumbnail}`}
                                                 alt={item.title}
                                                 className="card-img-top"
                                             />
