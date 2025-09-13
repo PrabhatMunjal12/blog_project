@@ -12,23 +12,27 @@ const PORT = process.env.PORT || 9000;
 connectToMongo();
 
 const allowedOrigins = [
-  "http://localhost:3000", // React local dev
-  "https://blog-project-1-5ih2.onrender.com", // deployed React on Render
+  "http://localhost:3000", // for local dev
+  "https://blog-project-1-5ih2.onrender.com", // your deployed React app
 ];
 
-app.use(cors({
-  origin: function (origin, callback) {
-    // allow requests with no origin (like mobile apps, curl)
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    } else {
-      return callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true, // allow cookies/authorization headers
-}));
-
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // Allow no-origin requests (like Postman or server-to-server)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      } else {
+        return callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
+app.options("*", cors());
 
 app.use(express.json());
 app.use(express.static("public/upload"));
