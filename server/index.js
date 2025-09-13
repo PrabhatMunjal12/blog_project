@@ -3,10 +3,11 @@ import cors from "cors";
 import connectToMongo from "./config/db.js";
 import authRoutes from "./routes/blog.js";
 import multer from "multer";
+import 'dotenv/config'
 
 
 const app = express();
-const PORT = 9000;
+const PORT = process.env.PORT || 9000;
 
 connectToMongo();
 
