@@ -144,10 +144,12 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(
-                "https://blog-project-5xqq.onrender.com/api/v1/user/register",
-                input
-            );
+            axios.post(
+  "https://blog-project-5xqq.onrender.com/api/v1/user/register",
+  input,
+  { headers: { "Content-Type": "application/json" }, withCredentials: true }
+);
+
             alert(res.data.message);
             navigate("/login");
         } catch (error) {
