@@ -164,9 +164,7 @@ const Register = () => {
             const res = await axios.post(
                 "https://blog-project-5xqq.onrender.com/api/v1/user/register",
                 input,
-                {
-                    withCredentials: true, // ✅ needed if your backend uses cookies or credentials
-                }
+                 { headers: { "Content-Type": "application/json" }, withCredentials: true }
             );
             alert(res.data.message);
             navigate("/login");
