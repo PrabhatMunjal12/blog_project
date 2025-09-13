@@ -27,13 +27,13 @@ const Register = () => {
     return (
         <div
             className="login-page d-flex justify-content-center align-items-center vh-100"
-            style={{
-                backgroundImage:
-                    "url('')",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                position: "relative",
-            }}
+            // style={{
+            //     backgroundImage:
+            //         "url('')",
+            //     backgroundSize: "cover",
+            //     backgroundPosition: "center",
+            //     position: "relative",
+            // }}
         >
             {/* Blur + Overlay */}
             <div
