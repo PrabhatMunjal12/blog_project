@@ -11,7 +11,7 @@ const SingleBlog = () => {
 
     useEffect(() => {
         const fetchSingleBlog = async () => {
-            const res = await axios.get(`https://blog-project-1-5ih2.onrender.com/api/v1/get/blog/${id}`, {
+            const res = await axios.get(`https://blog-project-5xqq.onrender.com/api/v1/get/blog/${id}`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
@@ -29,7 +29,7 @@ const SingleBlog = () => {
                 <div className='col-md-12 d-flex items-center justify-content-center bg-light'>
                     <div className='row'>
                         <h1 className='my-3'>{blog.title}</h1>
-                        <img src={`https://blog-project-1-5ih2.onrender.com/${blog.thumbnail}`}
+                        <img src={`https://blog-project-5xqq.onrender.com/${blog.thumbnail}`}
                             className='img img-responsive img-rounded my-3'
                             alt='' />
                         <p className='my-3'>{blog.description}</p>
