@@ -132,7 +132,7 @@ const Login = () => {
         e.preventDefault();
         try {
             const res = await axios.post(
-                "https://blog-project-1-5ih2.onrender.com/api/v1/user/login",
+                "https://blog-project-5xqq.onrender.com/api/v1/user/login",
                 input
             );
             alert(res.data.message);
