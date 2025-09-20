@@ -14,7 +14,7 @@ connectToMongo();
 app.use(
   cors({
     origin: "https://blog-project-1-5ih2.onrender.com", // frontend URL
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "post", "PUT", "DELETE"],
     credentials: true,
   })
 );
